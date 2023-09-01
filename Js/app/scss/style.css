@@ -2,5 +2,48 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  border: 1px solid rgb(255, 165, 165);
+  border: 1px solid rgba(255, 0, 0, 0.486);
+}
+
+h1 {
+  text-align: center;
+  margin: 50px 0 25px 0;
+}
+
+#clock-wrapper {
+  width: 175px;
+  margin: 0 auto 25px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 5fr 2fr;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+
+.label {
+  text-align: center;
+  grid-column: 1/3;
+}
+
+.length {
+  grid-row: 2/4;
+  display: flex;
+  justify-content: center;
+  font-size: xx-large;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+}
+
+#by {
+  margin: 0 0 50px 0;
+  text-align: center;
+  font-size: xx-small;
+  font-style: italic;
 }/*# sourceMappingURL=style.css.map */
