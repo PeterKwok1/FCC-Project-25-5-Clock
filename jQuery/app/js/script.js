@@ -13,12 +13,9 @@
 // styling
 
 // state
-let lengths = [
-    { sessionLength: 1 * 60 * 1000 }, // 25 minutes
-    { breakLength: 1 * 60 * 1000 } // 5 minutes
-]
+let lengths = [.15 * 60 * 1000, .1 * 60 * 1000] // order // 25 minutes // 5 minutes
 let currentLength = 0
-let runningLength = lengths[currentLength]
+let runningLength
 let isRunning = false
 
 // display 
@@ -38,20 +35,20 @@ const sessionLengthTag = $('#session-length')
 const timeLeftTag = $('#time-left')
 const sessionIncTag = $('#session-increment')
 const sessionDecTag = $('#session-decrement')
-display(sessionLengthTag, sessionLength) // initialize
-display(timeLeftTag, sessionLength)
+display(sessionLengthTag, lengths[0]) // initialize
+display(timeLeftTag, lengths[0])
 sessionIncTag.click(() => {
-    if (sessionLength < 60 * 60 * 1000) { // greater than 0 and less than 60 minutes
-        sessionLength += 5 * 1000 // 1 minute
-        display(sessionLengthTag, sessionLength)
-        display(timeLeftTag, sessionLength)
+    if (lengths[0] < 60 * 60 * 1000) { // greater than 0 and less than 60 minutes
+        lengths[0] += 5 * 1000 // 1 minute
+        display(sessionLengthTag, lengths[0])
+        display(timeLeftTag, lengths[0])
     }
 })
 sessionDecTag.click(() => {
-    if (sessionLength > 0) { // greater than 0 and less than 60 minutes
-        sessionLength -= 5 * 1000 // 1 minute
-        display(sessionLengthTag, sessionLength)
-        display(timeLeftTag, sessionLength)
+    if (lengths[0] > 0) { // greater than 0 and less than 60 minutes
+        lengths[0] -= 5 * 1000 // 1 minute
+        display(sessionLengthTag, lengths[0])
+        display(timeLeftTag, lengths[0])
     }
 })
 
@@ -59,39 +56,40 @@ sessionDecTag.click(() => {
 const breakLengthTag = $('#break-length')
 const breakIncTag = $('#break-increment')
 const breakDecTag = $('#break-decrement')
-display(breakLengthTag, breakLength) // initialize 
+display(breakLengthTag, lengths[1]) // initialize 
 breakIncTag.click(() => {
-    if (breakLength < 60 * 60 * 1000) { // greater than 0 and less than 60 minutes
-        breakLength += 5 * 1000 // 1 minute
-        display(breakLengthTag, breakLength)
+    if (lengths[1] < 60 * 60 * 1000) { // greater than 0 and less than 60 minutes
+        lengths[1] += 5 * 1000 // 1 minute
+        display(breakLengthTag, lengths[1])
     }
 })
 breakDecTag.click(() => {
-    if (breakLength > 0) { // greater than 0 and less than 60 minutes
-        breakLength -= 5 * 1000 // 1 minute
-        display(breakLengthTag, breakLength)
+    if (lengths[1] > 0) { // greater than 0 and less than 60 minutes
+        lengths[1] -= 5 * 1000 // 1 minute
+        display(breakLengthTag, lengths[1])
     }
 })
 
 // timer run
-function countDown(length) {
-    setInterval(() => {
-        if (runningLength < 0) {
-            clearInterval(countDown)
-            if (currentLength < lengths.length - 1) { // timer alternate
+function countDown() {
+    runningLength = lengths[currentLength]
+    let curCntDwn = setInterval(() => {
+        runningLength -= 1000 // 1 second
+        display(timeLeftTag, runningLength)
+        if (runningLength === 0) {
+            clearInterval(curCntDwn)
+            if (currentLength < lengths.length - 1) { // alternator
                 currentLength += 1
             } else {
                 currentLength = 0
             }
-            countDown(lengths[currentLength])
-        } else {
-            runningLength -= 1000 // 1 second
-            display(timeLeftTag, runningLength)
+            countDown()
         }
     }, 1000)
 }
 const startStopTag = $('#start_stop')
 startStopTag.click(() => {
-    countDown(lengths[currentLength])
+    countDown()
 })
+
 
