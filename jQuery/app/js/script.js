@@ -6,9 +6,8 @@
 
 // to dos
 // generalize inc and dec variables and functions
-// adjust code to use lengths arr. idk if going to use object or not. 
 // session label swap on countdown change
-// audio
+// audio on alternation
 // space to start/stop
 // styling
 
@@ -107,10 +106,9 @@ breakDecTag.click(() => {
 })
 
 // timer run
+const timerLabelTag = $('#timer-label')
 function countDown() {
     const curCntDwn = setInterval(() => {
-        runningLength -= 1000 // 1 second
-        display(timeLeftTag, runningLength, true)
         if (runningLength === 0) { // end of current countdown 
             clearInterval(curCntDwn)
             if (currentLength < lengths.length - 1) { // alternator
@@ -119,7 +117,12 @@ function countDown() {
                 currentLength = 0
             }
             runningLength = lengths[currentLength].length
+            timerLabelTag.text(lengths[currentLength].name)
+            display(timeLeftTag, lengths[currentLength].length, true)
             countDown()
+        } else {
+            runningLength -= 1000 // 1 second
+            display(timeLeftTag, runningLength, true)
         }
     }, 1000)
     isRunning = curCntDwn
@@ -145,8 +148,10 @@ resetTag.click(() => {
     display(sessionLengthTag, lengths[0].length)
     lengths[1].length = 5 * 60 * 1000
     display(breakLengthTag, lengths[1].length)
+
     currentLength = 0
     runningLength = lengths[currentLength].length
+    timerLabelTag.text(lengths[currentLength].name)
     display(timeLeftTag, runningLength, true)
 })
 
