@@ -1,6 +1,3 @@
-// to dos
-// styling
-
 // state // all state in one place for redux
 let lengths = [ // name and order
     {
