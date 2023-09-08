@@ -1,14 +1,4 @@
-// logic planning
-// timer set function
-// break set function
-// timer run function
-// break run function after timer
-
 // to dos
-// generalize inc and dec variables and functions
-// session label swap on countdown change
-// audio on alternation
-// space to start/stop
 // styling
 
 // state // all state in one place for redux
@@ -68,7 +58,7 @@ sessionDecTag.click(() => {
             display(sessionLengthTag, lengths[0].length)
             if (currentLength === 0) {
                 runningLength = lengths[currentLength].length
-                display(timeLeftTag, lengths[0].length, true)
+                display(timeLeftTag, runningLength, true)
             }
         }
     }
@@ -105,7 +95,7 @@ breakDecTag.click(() => {
     }
 })
 
-// timer run
+// timer start stop
 const timerLabelTag = $('#timer-label')
 function countDown() {
     const curCntDwn = setInterval(() => {
@@ -117,8 +107,9 @@ function countDown() {
                 currentLength = 0
             }
             runningLength = lengths[currentLength].length
+            display(timeLeftTag, runningLength, true)
             timerLabelTag.text(lengths[currentLength].name)
-            display(timeLeftTag, lengths[currentLength].length, true)
+            $('#beep')[0].play()
             countDown()
         } else {
             runningLength -= 1000 // 1 second
@@ -131,13 +122,25 @@ const startStopTag = $('#start_stop')
 startStopTag.click(() => {
     if (!isRunning) {
         countDown()
+        $('#start_stop').children().toggleClass('fa-play').toggleClass('fa-pause')
     } else {
         clearInterval(isRunning)
         isRunning = false
+        $('#start_stop').children().toggleClass('fa-play').toggleClass('fa-pause')
+    }
+})
+$(window).keypress((e) => {
+    if (e.key === ' ') {
+        if (!isRunning) {
+            countDown()
+        } else {
+            clearInterval(isRunning)
+            isRunning = false
+        }
     }
 })
 
-// reset // reset is similar to a combination of session set and break set
+// reset 
 const resetTag = $('#reset')
 resetTag.click(() => {
     if (isRunning) {
@@ -148,10 +151,10 @@ resetTag.click(() => {
     display(sessionLengthTag, lengths[0].length)
     lengths[1].length = 5 * 60 * 1000
     display(breakLengthTag, lengths[1].length)
-
     currentLength = 0
     runningLength = lengths[currentLength].length
-    timerLabelTag.text(lengths[currentLength].name)
     display(timeLeftTag, runningLength, true)
+    timerLabelTag.text(lengths[currentLength].name)
+    $('#beep')[0].load()
 })
 

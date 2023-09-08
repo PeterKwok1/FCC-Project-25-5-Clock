@@ -1,13 +1,22 @@
-* {
+$highlight: #57abff;
+$clock: #0e0e0e;
+$label: #c0e2ff;
+$length: #2cb2ff;
+$buttons: #af2727;
+$hover: #57a4d7;
+
+body {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    border: 1px solid rgba(255, 0, 0, 0.486);
+    // border: 1px solid rgba(255, 0, 0, 0.486);
+    background-color: $highlight;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 h1 {
     text-align: center;
-    margin: 50px 0 25px 0;
+    margin: 25px 0 25px 0;
     font-size: xxx-large;
 }
 
@@ -17,12 +26,20 @@ h1 {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 25px;
+    box-shadow: 0 0 3px;
+    background-color: $clock;
 }
 
 .wrapper {
     display: grid;
-    grid-template-columns: 5fr 2fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 5fr 1fr;
+    grid-template-rows: 1fr .75fr .75fr;
+    border: 1px solid black;
+    border-radius: 15px;
+    overflow: hidden;
 }
 
 .label {
@@ -32,22 +49,37 @@ h1 {
     justify-content: center;
     align-items: center;
     font-size: x-large;
+    padding: 5px;
+    background-color: $label;
 }
 
 .length {
     grid-row: 2 / 4;
     display: flex;
     justify-content: center;
+    align-items: center;
     font-size: xxx-large;
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    box-shadow: inset 0 0 2px;
+    background-color: $length;
 }
 
 .btn {
     display: flex;
     justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-top: 1px solid black;
+    background-color: $buttons;
+}
+
+.btn:hover {
+    background-color: $hover;
 }
 
 #by {
-    margin: 0 0 50px 0;
+    margin: 0 0 25px 0;
     text-align: center;
     font-size: x-small;
     font-style: italic;

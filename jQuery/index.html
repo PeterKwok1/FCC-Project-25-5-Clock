@@ -7,6 +7,7 @@
     <title>25 + 5 Clock</title>
     <link rel="stylesheet" href="app/scss/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/901784ae91.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -15,20 +16,21 @@
         <div id="session-wrapper" class="wrapper">
             <div id="session-label" class="label">Session Length</div>
             <div id="session-length" class="length"></div>
-            <div id="session-increment" class="btn">+</div>
-            <div id="session-decrement" class="btn">-</div>
+            <div id="session-increment" class="btn"><i class="fa-solid fa-plus"></i></div>
+            <div id="session-decrement" class="btn"><i class="fa-solid fa-minus"></i></div>
         </div>
         <div id="break-wrapper" class="wrapper">
             <div id="break-label" class="label">Break Length</div>
             <div id="break-length" class="length"></div>
-            <div id="break-increment" class="btn">+</div>
-            <div id="break-decrement" class="btn">-</div>
+            <div id="break-increment" class="btn"><i class="fa-solid fa-plus"></i></div>
+            <div id="break-decrement" class="btn"><i class="fa-solid fa-minus"></i></div>
         </div>
         <div id="timer-wrapper" class="wrapper">
             <div id="timer-label" class="label">Session</div>
             <div id="time-left" class="length"></div>
-            <div id="start_stop" class="btn">P</div>
-            <div id="reset" class="btn">R</div>
+            <audio id="beep" src="src/audio/alarm.mp3"></audio>
+            <div id="start_stop" class="btn"><i class="fa-solid fa-play"></i></div>
+            <div id="reset" class="btn"><i class="fa-solid fa-rotate-right"></i></div>
         </div>
     </div>
 
